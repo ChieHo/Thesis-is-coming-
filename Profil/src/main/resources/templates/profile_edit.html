@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil bearbeiten</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+    <link th:href="@{/css/pico.colors.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<h1>Profil bearbeiten</h1>
+<main>
+    <form method="post" th:action="@{/teacher/edit}" th:object="${profil}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <input name="profilId" th:value="*{id}" type="hidden">
+
+        <h2>Persönliche Informationen</h2>
+
+        <label for="id_name">Vollständigen Namen</label>
+        <input id="id_name" placeholder="Prof. Dr. Max Mustermann" th:field="*{name}" type="text">
+        <small class="pico-color-pink-500" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</small>
+
+        <label for="id_Email">E-Mail</label>
+        <input id="id_Email" placeholder="max.mustermann@hhu.de" th:field="*{email}" type="text">
+        <small th:errors="*{email}" th:if="${#fields.hasErrors('email')}">E-Mail Error</small>
+
+        <button name="action" type="submit" value="save_profile">Profil speichern</button>
+    </form>
+
+    <form method="post" th:action="@{/teacher/edit}" th:object="${link}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <input name="profilId" th:value="${profil.id}" type="hidden">
+
+        <h2>Weitere Informationen</h2>
+        <h3>Links</h3>
+        <ul th:if="${profil.links != null and !profil.links.isEmpty()}">
+            <li th:each="linkItem : ${profil.links}">
+                <a th:href="${linkItem.url}" th:text="${linkItem.anzeigetext}">Link</a>
+            </li>
+        </ul>
+        <p th:if="${profil.links == null || profil.links.isEmpty()}">Keine hinzugefügt</p>
+
+        <label for="id_link">Link zum Profil hinzufügen</label>
+        <label for="anzeigeText">Anzeigetext zum Link</label>
+        <fieldset role="group">
+            <input id="id_link" placeholder="https://hhu.de" th:field="*{url}" type="text">
+            <input id="anzeigeText" placeholder="hhu oder gleiche Link" th:field="*{anzeigetext}" type="text">
+            <button name="action" type="submit" value="addLink">Hinzufügen</button>
+        </fieldset>
+        <small class="pico-color-pink-500" th:errors="*{url}" th:if="${#fields.hasErrors('url')}">Link Error</small>
+    </form>
+
+    <form method="post" th:action="@{/teacher/edit}" th:object="${fachgebiet}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <input name="profilId" th:value="${profil.id}" type="hidden">
+
+        <h3>Fachgebiete</h3>
+        <ul th:if="${profil.fachgebiete != null and !profil.fachgebiete.isEmpty()}">
+            <li th:each="fachgebiet: ${profil.fachgebiete}">
+                <span th:text="${fachgebiet.name}">Fachgebiet</span>
+            </li>
+        </ul>
+        <p th:if="${profil.fachgebiete == null || profil.fachgebiete.isEmpty()}">Keine hinzugefügt</p>
+
+        <label for="id_Fachgebiet">Fachgebiet zum Profil hinzufügen</label>
+        <fieldset role="group">
+            <input id="id_Fachgebiet" placeholder="Fachgebiet" th:field="*{name}" type="text">
+            <button name="action" type="submit" value="addFachgebiet">Hinzufügen</button>
+        </fieldset>
+        <small class="pico-color-pink-500" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Fachgebiet error</small>
+
+        <h3>Dateien</h3>
+        <p><a href="/teacher/edit/files" role="button">Dateien hochladen</a></p>
+    </form>
+</main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rollenentzug bestätigen</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Rollenentzug bestätigen</h1>
+    <p>Sind Sie sich sicher, dass sie die Berechtigung von <span th:text="${profile.githubLogin}"></span> (<span
+            th:text="${profile.name}">Name</span>) entziehen möchten? Diese Aktion löscht auch das Profil der Person und ist
+        unwiderruflich; wiederherstellen der Berechtigung stellt keine Inhalte des Profils wieder.</p>
+    <form method="post">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+        <input th:value="${profile.id}" type="hidden">
+        <input type="submit" value="Berechtigung entziehen">
+    </form>
+</main>
+</body>
+</html>

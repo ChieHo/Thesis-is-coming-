@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${thema.titel}">Thema</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1 th:text="${thema.titel}">Titel</h1>
+
+    <p>Betreuer: <a th:href="@{/view/profile/{id}(id=${betreuer.id})}" th:text="${betreuer.name}">Name</a></p>
+
+    <p>Fachgebiete: <span th:if="${thema.fachgebiete == null || thema.fachgebiete.isEmpty()}">Keine angegeben.</span></p>
+    <ul th:if="${thema.fachgebiete != null and !thema.fachgebiete.isEmpty()}">
+        <li th:each="fachgebiet : ${thema.fachgebiete}" th:text="${fachgebiet.name}">Gebiet</li>
+    </ul>
+
+    <p>Voraussetzungen: <span th:if="${thema.voraussetzungen == null || thema.voraussetzungen.isEmpty()}">Keine angegeben.</span></p>
+    <ul th:if="${thema.voraussetzungen != null and !thema.voraussetzungen.isEmpty()}">
+        <li th:each="v : ${thema.voraussetzungen}" >Voraussetzung</li>
+    </ul>
+
+    <p>Links: <span th:if="${thema.links == null || thema.links.isEmpty()}">Keine angegeben.</span></p>
+    <ul th:if="${thema.links != null and !thema.links.isEmpty()}">
+        <li th:each="link : ${thema.links}">
+            <a th:href="${link.url}" th:text="${link.anzeigetext}">Link</a>
+        </li>
+    </ul>
+
+    <h2>Beschreibung</h2>
+    <p th:if="${thema.beschreibung == null || thema.beschreibung.isEmpty()}">Keine Beschreibung angegeben.</p>
+    <article th:if="${renderedBeschreibung}" th:utext="${renderedBeschreibung}"></article>
+
+    <h2>Dateien</h2>
+    <p th:if="${thema.themaFiles == null || thema.themaFiles.isEmpty()}">Keine Dateien vorhanden.</p>
+    <ul th:if="${thema.themaFiles != null and !thema.themaFiles.isEmpty()}">
+        <li th:each="file : ${thema.themaFiles}">
+            <a th:href="@{/view/thema/{id}/{name}(id=${thema.fachId},name=${file.name})}">
+                <span th:text="${file.name}">datei.md</span>
+                <small>(<span th:text="${file.displaySize()}">50 kB</span>)</small>
+            </a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+nav {
+    position: relative;
+}
+
+.myLinks {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    z-index: 999;
+    background-color: var(--pico-background-color);
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius);
+    min-width: 220px;
+}
+
+.myLinks a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--pico-color);
+    text-decoration: none;
+}
+
+.myLinks a:hover {
+    background-color: var(--pico-muted-border-color);
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Profil von ' + ${profile.name}">Profil von Name</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Profil von <span th:text="${profile.name}">Name</span></h1>
+    <p>E-Mail: <span th:text="${profile.email}">user@example.org</span><span th:if="${noEmail}">Es wurde keine E-Mail-Adresse angegeben.</span>
+    </p>
+    <p>Fachgebiete: <span th:if="${noFachgebiete}">Es wurden keine Fachgebiete angegeben.</span></p>
+    <ul>
+        <li th:each="fachgebiet : ${profile.fachgebiete}" th:text="${fachgebiet.name}">Gebiet 1</li>
+    </ul>
+    <p>Links: <span th:if="${noLinks}">Es wurden keine Links angegeben.</span></p>
+    <ul>
+        <li th:each="link : ${profile.links}">
+            <a th:href="${link.url}" th:text="${link.anzeigetext}">example</a>
+        </li>
+    </ul>
+
+    <h2>Dateien</h2>
+    <ul>
+        <li th:each="file : ${profile.profileFiles}"><a th:href="'/view/profile/' + ${profile.id} + '/' + ${file.name}">
+            <span th:text="${file.name}">datei.md</span>
+            <small>(<span th:text="${file.displaySize()}">50 kB</span>)</small>
+        </a></li>
+    </ul>
+</main>
+</body>
+</html>

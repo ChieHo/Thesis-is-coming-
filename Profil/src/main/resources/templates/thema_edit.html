@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thema bearbeiten</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+    <link th:href="@{/css/pico.colors.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<h1>Thema bearbeiten</h1>
+<main>
+    <h2>Meine Themen</h2>
+    <ul th:if="${themen != null and !themen.isEmpty()}">
+        <li th:each="t : ${themen}">
+            <a th:href="@{/teacher/thema/{id}/edit(id=${t.fachId})}" th:text="${t.titel}">Thema</a>
+        </li>
+    </ul>
+
+    <form method="post" th:action="@{/teacher/thema/neu}" th:object="${thema}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+
+        <h2>Thema Informationen</h2>
+
+        <label for="id_titel">Titel</label>
+        <input id="id_titel" placeholder="Entwicklung eines Parsergenerators in Rust" th:field="*{titel}" type="text">
+        <small class="pico-color-pink-500" th:errors="*{titel}" th:if="${#fields.hasErrors('titel')}">Titel Error</small>
+
+        <label for="id_beschreibung">Beschreibung</label>
+        <textarea id="id_beschreibung" placeholder="Beschreibung des Themas..." th:field="*{beschreibung}" rows="6"></textarea>
+
+        <button name="action" type="submit" value="save_thema">Thema speichern</button>
+    </form>
+
+    <div th:if="${thema.fachId != null}">
+        <form method="post" th:action="@{/teacher/thema/{id}/edit(id=${thema.fachId})}" th:object="${link}">
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+
+            <h2>Weitere Informationen</h2>
+            <h3>Links</h3>
+            <ul th:if="${!thema.links.isEmpty()}">
+                <li th:each="linkItem : ${thema.links}">
+                    <a th:href="${linkItem.url}" th:text="${linkItem.anzeigetext}">Link</a>
+                </li>
+            </ul>
+            <p th:if="${thema.links.isEmpty()}">Keine hinzugefügt</p>
+
+            <label for="id_link">Link hinzufügen</label>
+            <label for="id_anzeigetext">Anzeigetext</label>
+            <fieldset role="group">
+                <input id="id_link" placeholder="https://hhu.de" th:field="*{url}" type="text">
+                <input id="id_anzeigetext" placeholder="HHU" th:field="*{anzeigetext}" type="text">
+                <button name="action" type="submit" value="addLink">Hinzufügen</button>
+            </fieldset>
+            <small class="pico-color-pink-500" th:errors="*{url}" th:if="${#fields.hasErrors('url')}">Link Error</small>
+        </form>
+
+        <form method="post" th:action="@{/teacher/thema/{id}/edit(id=${thema.fachId})}" th:object="${fachgebiet}">
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+
+            <h3>Fachgebiete</h3>
+            <ul th:if="${!thema.fachgebiete.isEmpty()}">
+                <li th:each="fg : ${thema.fachgebiete}">
+                    <span th:text="${fg.name}">Fachgebiet</span>
+                </li>
+            </ul>
+            <p th:if="${thema.fachgebiete.isEmpty()}">Keine hinzugefügt</p>
+
+            <label for="id_fachgebiet">Fachgebiet hinzufügen</label>
+            <fieldset role="group">
+                <input id="id_fachgebiet" placeholder="Compilerbau" th:field="*{name}" type="text">
+                <button name="action" type="submit" value="addFachgebiet">Hinzufügen</button>
+            </fieldset>
+            <small class="pico-color-pink-500" th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Fachgebiet Error</small>
+        </form>
+
+        <form method="post" th:action="@{/teacher/thema/{id}/edit(id=${thema.fachId})}" th:object="${voraussetzung}">
+            <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+
+            <h3>Voraussetzungen</h3>
+            <ul th:if="${!thema.voraussetzungen.isEmpty()}">
+                <li th:each="v : ${thema.voraussetzungen}">
+                    <span th:text="${v.voraussetzung}">Voraussetzung</span>
+                </li>
+            </ul>
+            <p th:if="${thema.voraussetzungen.isEmpty()}">Keine hinzugefügt</p>
+
+            <label for="id_voraussetzung">Voraussetzung hinzufügen</label>
+            <fieldset role="group">
+                <input id="id_voraussetzung" placeholder="Compilerbau" th:field="*{voraussetzung}" type="text">
+                <button name="action" type="submit" value="addVoraussetzung">Hinzufügen</button>
+            </fieldset>
+            <small class="pico-color-pink-500" th:errors="*{voraussetzung}" th:if="${#fields.hasErrors('voraussetzung')}">Voraussetzung Error</small>
+
+            <h3>Dateien</h3>
+            <p><a th:href="@{/teacher/thema/{id}/edit/files(id=${thema.fachId})}" role="button">Dateien hochladen</a></p>
+        </form>
+    </div>
+    <p th:unless="${thema.fachId != null}">Bitte zuerst das Thema speichern, um weitere Informationen hinzuzufügen.</p>
+</main>
+</body>
+</html>

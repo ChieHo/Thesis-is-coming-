@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Profilsuche</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Profilsuche</h1>
+    <form action="search" role="search">
+        <input id="search" name="query" placeholder="Suchanfrage" th:value="${query}" title="Suche" type="search">
+        <input type="submit" value="Suchen">
+    </form>
+    <p th:if="${query}">
+        Die Suchanfrage "<span th:text="${query}">Anfrage</span>" ergab
+        <span th:if="${found}">folgende</span><span th:unless="${found}">keine</span> Ergebnisse
+    </p>
+    <ul>
+        <li th:each="profile : ${profiles}">
+            <a th:href="${profile.id}" th:text="${profile.name}">Name</a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

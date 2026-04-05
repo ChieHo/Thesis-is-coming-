@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rollenentzug</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Rollenentzug</h1>
+    <p>Wählen Sie eine Person aus, der die Rolle als betreuende Person entzogen werden soll. In der Liste steht zunächst der
+        GitHub login Name der Person und in Klammern dahinter der im Profil hinterlegte Name.</p>
+    <ul>
+        <li th:each="profile : ${profiles}">
+            <a th:href="'revoke/' + ${profile.id}"><span th:text="${profile.githubLogin}">login</span> (<span
+                    th:text="${profile.name}">Name</span>)</a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

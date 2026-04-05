@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Datei hochladen</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Datei hochladen</h1>
+    <h2>Neue Datei hochladen</h2>
+    <form enctype="multipart/form-data" method="post"
+          th:action="@{/teacher/thema/{id}/edit/files/upload(id=${thema.fachId})}">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden">
+        <input name="file" type="file">
+        <label for="description">Dateibeschreibung</label>
+        <textarea id="description" name="description"></textarea>
+        <button type="submit">Abschicken</button>
+    </form>
+    <h2 th:if="${!thema.themaFiles.isEmpty()}">Bereits hochgeladene Dateien</h2>
+    <ul>
+        <li th:each="file : ${thema.themaFiles}">
+            <span th:text="${file.name}">datei.md</span>
+            <small>(<span th:text="${file.displaySize()}">50 kB</span>)</small>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

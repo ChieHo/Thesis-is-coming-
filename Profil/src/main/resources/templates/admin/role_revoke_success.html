@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rolle erfolgreich entzogen</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <nav th:replace="~{frag-header :: admin}"></nav>
+    <h1>Rolle erfolgreich entzogen</h1>
+    <p>Die Rolle als betreuende Person wurde von <span th:text="${login}">login</span> (<span th:text="${name}">Name</span>)
+        mit der ID <span th:text="${id}">uuid</span> erfolgreich entzogen.</p>
+    <p><a href="/admin/roles/revoke">Zurück zur Auswahl.</a></p>
+</main>
+</body>
+</html>

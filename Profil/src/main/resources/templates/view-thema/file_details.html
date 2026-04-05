@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${file.name}">datei.md</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1 th:text="${file.name}">datei.md</h1>
+    <p>Hochgeladen von <span th:text="${thema.titel}">Thema</span></p>
+    <p>Datum: <span th:text="${file.displayUploadDate()}">2020-02-20T20:20:20Z</span></p>
+    <p>Größe: <span th:text="${file.displaySize()}">10kB</span></p>
+    <p>Dateityp: <span th:text="${file.type}">text/markdown</span></p>
+    <p><a role="button" th:href="'/view/thema/' + ${thema.id} + '/' + ${file.name} + '/download'">Download</a></p>
+    <h2 th:if="${file.description}">Beschreibung</h2>
+    <p th:text="${file.description}"></p>
+    <div th:if="${renderedMarkdown}">
+        <h2>Markdown</h2>
+        <p>Markdown Dateien werden für den Download nicht gerendert.</p>
+        <article th:utext="${renderedMarkdown}"></article>
+    </div>
+    <p><a role="button" th:href="@{/view/thema/{id}/{name}/download(id=${thema.fachId},name=${file.name})}">Download</a></p>
+</main>
+</body>
+</html>

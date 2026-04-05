@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="de" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">JensClicker</title>
+    <link th:href="@{/css/pico.min.css}" rel="stylesheet">
+    <link th:href="@{/css/hamburger.css}" rel="stylesheet">
+</head>
+<body class="container">
+<nav th:replace="~{frag-header :: ${nav}}"></nav>
+<th:block th:replace="${content}"></th:block>
+<script th:src="@{/js/hamburger.js}"></script>
+</body>
+</html>

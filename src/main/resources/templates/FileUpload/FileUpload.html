@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Datei Hochladen</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="@{stylesheet}">
+</head>
+<body class="container">
+<main>
+    <h1>Laden Sie hier Ihre Datei hoch</h1>
+
+    <form enctype="multipart/form-data" method="post" th:action="@{/files/upload/{id}(id=${id})}">
+        <input name="file" type="file"/>
+        <button type="submit">Hochladen</button>
+    </form>
+</main>
+</body>
+</html>

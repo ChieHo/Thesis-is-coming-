@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<body>
+<main>
+    <h1>Rollenzuweisung</h1>
+    <h2>Neue Person als betreuende Person eintragen</h2>
+    <p>Geben Sie den GitHub Namen der Person ein, die als betreuende Person eingetragen werden soll.</p>
+    <form method="post">
+        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+        <label for="login">GitHub Login: <input id="login" name="login" th:aria-invalid="${err}">
+            <small th:text="${msg}"></small></label>
+        <input type="submit" value="Hinzufügen">
+    </form>
+</main>
+</body>
+</html>

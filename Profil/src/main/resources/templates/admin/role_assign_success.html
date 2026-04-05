@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Rolle erfolgreich zugewiesen</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Rolle erfolgreich zugewiesen</h1>
+    <p>Die Rolle als betreuende Person wurde <span th:text="${profile.githubLogin}">login</span> mit der ID <span
+            th:text="${profile.id}">uuid</span> wurde erfolgreich zugewiesen.</p>
+    <p><a href="/admin/roles/assign">Zurück zur Zuweisung.</a></p>
+</main>
+</body>
+</html>

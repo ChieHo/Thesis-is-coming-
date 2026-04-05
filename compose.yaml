@@ -1,0 +1,25 @@
+services:
+  database:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_DB=jensclicker"
+      - "POSTGRES_USER=user"
+      - "POSTGRES_PASSWORD=iamgroot"
+
+
+
+  sprint-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thesis-jensclicker
+    ports:
+      - "8081:8080"
+    depends_on:
+      - database
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/jensclicker
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=iamgroot

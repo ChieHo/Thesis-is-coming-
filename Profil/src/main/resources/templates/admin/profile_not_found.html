@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil nicht gefunden</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Profil nicht gefunden</h1>
+    <p>Das Profil mit der ID <span th:text="${id}">uuid</span> konnte nicht gefunden werden.</p>
+    <p><a href="/admin/roles/revoke">Zurück zur Auswahl.</a></p>
+</main>
+
+</body>
+</html>

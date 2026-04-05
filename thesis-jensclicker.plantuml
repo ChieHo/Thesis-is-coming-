@@ -1,0 +1,102 @@
+@startuml
+
+!theme plain
+left to right direction
+skinparam linetype ortho
+
+annotation AdminAccess << annotation >>
+class AdminController
+class AdminControllerTest
+class AppUserService
+interface CSModuleRepository << interface >>
+class CSModuleService
+class CSModules
+class ClassHasGetterRule
+class ClassHasSetterRule
+class ControllerTest
+class ErrorPageController
+class Fachgebiet
+class Fachgebiet
+entity FachgebietDto << record >>
+interface FachgebietRepository << interface >>
+class FachgebietService
+class File
+class FileController
+class FileNotFoundException
+interface FileRepository << interface >>
+class FileService
+class FileTooLargeException
+class HomeController
+class HomePageTest
+class HomepageApplication
+class HomepageApplicationTests
+class Link
+class Link
+entity LinkDto << record >>
+interface LinkRepository << interface >>
+class LinkService
+class LoginController
+class MarkdownRenderer
+class MethodSecurityConfig
+class ModuleController
+class ModuleFachgebietLinkFileThesisDTO
+class NavMapper
+class NichtVorhandenException
+class Profil
+class ProfilApplication
+class ProfilApplicationTests
+class ProfilArchUnitTest
+class ProfilBuilder
+interface ProfilDataRepo << interface >>
+entity ProfilDto << record >>
+interface ProfilRepository << interface >>
+class ProfilRepositoryImpl
+class ProfilService
+class ProfilServiceTest
+class ProfileController
+class ProfileFile
+entity ProfileFileDto << record >>
+class ProfileNotFoundException
+class ProfileViewController
+class ProfileViewControllerTest
+class SecurityConfig
+annotation StudiAccess << annotation >>
+annotation TeacherAccess << annotation >>
+class TeacherWebUITest
+class TestcontainersConfiguration
+class Thema
+interface ThemaDataRepo << interface >>
+entity ThemaDto << record >>
+interface ThemaRepository << interface >>
+class ThemaRepositoryImpl
+class ThemaService
+class Thesis
+class ThesisCSModule
+interface ThesisCSModuleRepository << interface >>
+class ThesisCSModuleService
+class ThesisController
+class ThesisFachgebiet
+interface ThesisFachgebietRepository << interface >>
+class ThesisFachgebietService
+class ThesisJensclickerApplication
+class ThesisJensclickerApplicationTests
+interface ThesisRepository << interface >>
+class ThesisService
+class ThesisTest
+class UngueltigeEingabeException
+class UnsupportedFileTypeException
+class UtilityApplication
+class Voraussetzung
+entity VoraussetzungDto << record >>
+annotation WithMockOAuth2User << annotation >>
+class WithOAuth2UserSecurityContextFactory
+class build
+class settings
+
+AdminController                       -[#999900,dotted]-  AdminAccess                          
+HomeController                        -[#999900,dotted]-  StudiAccess                          
+ProfilRepositoryImpl                  -[#008200,dashed]-^  ProfilRepository                     
+ProfileController                     -[#999900,dotted]-  TeacherAccess                        
+ProfileViewController                 -[#999900,dotted]-  StudiAccess                          
+ThemaRepositoryImpl                   -[#008200,dashed]-^  ThemaRepository                      
+@enduml

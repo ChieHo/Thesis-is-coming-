@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+</head>
+
+<body class="container">
+<div th:fragment="theme">
+    <button aria-label="Toggle Theme" class="secondary outline" data-placement="left" data-tooltip="Toggle Theme"
+            id="theme-button">Toggle Theme
+    </button>
+    <script>
+        // Sofort beim Parsen ausführen (Button steht bereits im DOM)
+        (function () {
+            function current() {
+                return JSON.parse(localStorage.getItem("theme") ?? String(matchMedia('(prefers-color-scheme: dark)').matches));
+            }
+            function toggleTheme() {
+                localStorage.setItem("theme", String(!current()));
+                applyTheme();
+            }
+            function applyTheme() {
+                document.documentElement.setAttribute("data-theme", current() ? "dark" : "light");
+                const btn = document.getElementById("theme-button");
+                if (btn) btn.innerText = current() ? "🌙" : "☀️";
+            }
+
+            const btn = document.getElementById("theme-button");
+            if (btn) btn.onclick = toggleTheme;
+            applyTheme();
+        })();
+    </script>
+</div>
+
+<nav th:fragment="logged-out">
+    <ul>
+        <li><strong>JensClicker</strong></li>
+    </ul>
+    <ul>
+        <li th:insert="~{frag-header :: theme}"></li>
+        <li>
+            <a href="javascript:void(0);" class="contrast" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="myLinks">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/view/profile/all}">Profilsuche</a>
+        <a th:href="@{/view/thema/all}">Themensuche</a>
+        <a th:href="@{/gh-login}">Anmelden</a>
+    </div>
+</nav>
+
+<nav th:fragment="logged-in">
+    <ul>
+        <li><strong>JensClicker</strong></li>
+    </ul>
+    <ul>
+        <li th:insert="~{frag-header :: theme}"></li>
+        <li>
+            <a href="javascript:void(0);" class="contrast" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="myLinks">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/view/profile/all}">Profilsuche</a>
+        <a th:href="@{/view/thema/all}">Themensuche</a>
+        <a th:href="@{/gh-login}">Rollenaktualisierung</a>
+    </div>
+</nav>
+
+<nav th:fragment="logged-in-teacher">
+    <ul>
+        <li><strong>JensClicker</strong> - Teacher</li>
+    </ul>
+    <ul>
+        <li th:insert="~{frag-header :: theme}"></li>
+        <li>
+            <a href="javascript:void(0);" class="contrast" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="myLinks">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/view/profile/all}">Profilsuche</a>
+        <a th:href="@{/view/thema/all}">Themensuche</a>
+        <a th:href="@{/teacher/edit}">Profil bearbeiten</a>
+        <a th:href="@{/teacher/thema/neu}">Thema hinzufügen</a>
+        <a th:href="@{/gh-login}">Rollenaktualisierung</a>
+    </div>
+</nav>
+
+<nav th:fragment="admin">
+    <ul>
+        <li><strong>JensClicker</strong> - Admin</li>
+    </ul>
+    <ul>
+        <li th:insert="~{frag-header :: theme}"></li>
+        <li>
+            <a href="javascript:void(0);" class="contrast" onclick="myFunction()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </li>
+    </ul>
+    <div class="myLinks">
+        <a th:href="@{/}">Home</a>
+        <a th:href="@{/about}">About</a>
+        <a th:href="@{/view/profile/all}">Profilsuche</a>
+        <a th:href="@{/view/thema/all}">Themensuche</a>
+        <a th:href="@{/admin/roles}">Rollenverwaltung</a>
+        <a th:href="@{/admin/roles/assign}">Betreuer anlegen</a>
+        <a th:href="@{/admin/roles/revoke}">Betreuer entfernen</a>
+    </div>
+</nav>
+<script th:src="@{/js/hamburger.js}"></script>
+</body>
+</html>

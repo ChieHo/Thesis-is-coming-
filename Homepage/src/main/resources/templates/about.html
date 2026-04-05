@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<body>
+<main>
+    <h1>About</h1>
+    <p>Hier finden Sie ihre richtige Abschlussarbeit</p>
+
+    <h2>Contributors</h2>
+    <div class="grid">
+        <div>
+            <a th:href="@{https://github.com/ChieHo}">
+                <img alt="Pinguin Profilbild von Chie-Ho" height="80"
+                     src="https://avatars.githubusercontent.com/u/93615246?v=4" width="80">
+                <p>Chie-Ho</p>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{https://github.com/Just-Nils}">
+                <img alt="Profilbild von Nils" height="80"
+                     src="https://avatars.githubusercontent.com/u/61635472?v=4" width="80">
+                <p>Nils</p>
+            </a>
+        </div>
+        <div>
+            <a th:href="@{https://github.com/huj23zuh}">
+                <img alt="Profilbild von huj23zuh" height="80"
+                     src="https://avatars.githubusercontent.com/u/184354245?v=4" width="80">
+                <p>huj23zuh</p>
+            </a>
+        </div>
+    </div>
+</main>
+</body>
+</html>
