@@ -3,27 +3,27 @@
 Fullstack web application for matching students with thesis supervisors
 (HHU Programmierpraktikum 2 project)
 
-Features
+==Features
 
-*Browse and search
-**supervisor profiles with tags and specializations
-**thesis topics with filtering by field, prerequisites and supervisor
+* Browse and search
+** supervisor profiles with tags and specializations
+** thesis topics with filtering by field, prerequisites and supervisor
 
-*Matching system
-**students enter their completed courses and interests
-**System find compatible supervisors and topics
+* Matching system
+** students enter their completed courses and interests
+** System find compatible supervisors and topics
 
-*Supervisor profiles with files (PDF, ZIP, Markdown), links and field tags
-*Thesis topics with descriptions (rendered Markdown), prerequisites, files and links
+* Supervisor profiles with files (PDF, ZIP, Markdown), links and field tags
+* Thesis topics with descriptions (rendered Markdown), prerequisites, files and links
 
-*Role-based access
-**Students
-**Supervisors (Teachers)
-**Admins
+* Role-based access
+** Students
+** Supervisors (Teachers)
+** Admins
 
-*Dashboards
-**Admin dashboard for managing supervisor roles
-**Teacher dashboard for managing own profile and topics
+* Dashboards
+** Admin dashboard for managing supervisor roles
+** Teacher dashboard for managing own profile and topics
 
 *Authentication via GitHub OAuth2
 *Markdown files rendered as HTML directly in the browser
