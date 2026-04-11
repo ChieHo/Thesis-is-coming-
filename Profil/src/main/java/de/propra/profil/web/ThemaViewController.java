@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.io.IOException;
@@ -54,21 +55,7 @@ public class ThemaViewController {
         return "view-thema/list";
     }
 
-    @GetMapping("/view/thema/search")
-    public String searchThemen(Model model, String query, @AuthenticationPrincipal OAuth2User principal) {
-        if (query == null || query.isBlank()) {
-            return "redirect:/view/thema/all";
-        }
-        List<Thema> themen = themaService.alleThemen()
-                .stream()
-                .filter(thema -> thema.getTitel().toLowerCase().contains(query.toLowerCase()))
-                .collect(toList());
-        model.addAttribute("query", query);
-        model.addAttribute("themen", themen);
-        model.addAttribute("found", !themen.isEmpty());
-        model.addAttribute("nav", NavMapper.mapRole(principal));
-        return "view-thema/list";
-    }
+
 
     @GetMapping("/view/thema/{id}")
     public String viewThema(Model model, @PathVariable("id") UUID id, @AuthenticationPrincipal OAuth2User principal) {
@@ -108,5 +95,22 @@ public class ThemaViewController {
         headers.setContentDispositionFormData("attachment", file.getName());
         headers.setContentLength(file.getSize());
         return new ResponseEntity<>(new FileSystemResource(file.asFile()), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/view/thema/search")
+    public String searchThemen(Model model,
+                               @RequestParam(required = false) String query,
+                               @RequestParam(required = false) List<String> fachgebiet,
+                               @RequestParam(required = false) List<String> voraussetzung,
+                               @RequestParam(required = false) List<String> betreuer,
+                               @AuthenticationPrincipal OAuth2User principal) {
+        if (query == null && fachgebiet == null && voraussetzung == null && betreuer == null) {
+            return "redirect:/view/thema/all";
+        }
+        List<Thema> themen = themaService.sucheWithBetreuer(query, fachgebiet, voraussetzung, betreuer);
+        model.addAttribute("themen", themen);
+        model.addAttribute("found", !themen.isEmpty());
+        model.addAttribute("nav", NavMapper.mapRole(principal));
+        return "view-thema/list";
     }
 }

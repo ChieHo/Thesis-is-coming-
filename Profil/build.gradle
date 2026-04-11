@@ -47,7 +47,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     implementation project(":Utility")
-    implementation project(":Homepage")
+
 }
 
 spotbugs {

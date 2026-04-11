@@ -8,15 +8,90 @@
 <body class="container">
 <main>
     <h1>Themensuche</h1>
-    <form action="search" role="search">
-        <input id="search" name="query" placeholder="Suchanfrage" th:value="${query}" title="Suche" type="search">
-        <input type="submit" value="Suchen">
+
+    <form th:action="@{/view/thema/search}" method="get">
+        <h2>Titel</h2>
+        <fieldset role="group">
+            <input id="query" name="query" placeholder="Titel suchen" th:value="${query}" type="search">
+            <input type="submit" value="Suchen">
+        </fieldset>
     </form>
-    <p th:if="${query}">
-        Die Suchanfrage "<span th:text="${query}">Anfrage</span>" ergab
-        <span th:if="${found}">folgende</span><span th:unless="${found}">keine</span> Ergebnisse
+
+    <form th:action="@{/view/thema/search}" method="get">
+        <h2>Fachgebiete</h2>
+        <p th:if="${param.fachgebiet != null}">
+            Aktive Filter:
+            <span th:each="fg : ${param.fachgebiet}">
+                <strong th:text="${fg}">fg</strong>
+            </span>
+        </p>
+        <th:block th:if="${param.query != null}">
+            <input type="hidden" name="query" th:value="${param.query}">
+        </th:block>
+        <th:block th:each="fg : ${param.fachgebiet}">
+            <input type="hidden" name="fachgebiet" th:value="${fg}">
+        </th:block>
+        <fieldset role="group">
+            <input name="fachgebiet" placeholder="z.B. Compilerbau" type="search">
+            <input type="submit" value="Hinzufügen">
+        </fieldset>
+    </form>
+
+    <form th:action="@{/view/thema/search}" method="get">
+        <h2>Voraussetzungen</h2>
+        <p th:if="${param.voraussetzung != null}">
+            Aktive Filter:
+            <span th:each="v : ${param.voraussetzung}">
+                <strong th:text="${v}">v</strong>
+            </span>
+        </p>
+        <th:block th:if="${param.query != null}">
+            <input type="hidden" name="query" th:value="${param.query}">
+        </th:block>
+        <th:block th:each="fg : ${param.fachgebiet}">
+            <input type="hidden" name="fachgebiet" th:value="${fg}">
+        </th:block>
+        <th:block th:each="v : ${param.voraussetzung}">
+            <input type="hidden" name="voraussetzung" th:value="${v}">
+        </th:block>
+        <fieldset role="group">
+            <input name="voraussetzung" placeholder="z.B. Compilerbau" type="search">
+            <input type="submit" value="Hinzufügen">
+        </fieldset>
+    </form>
+
+    <form th:action="@{/view/thema/search}" method="get">
+        <h2>Betreuer</h2>
+        <p th:if="${param.betreuer != null}">
+            Aktive Filter:
+            <span th:each="b : ${param.betreuer}">
+                <strong th:text="${b}">b</strong>
+            </span>
+        </p>
+        <th:block th:if="${param.query != null}">
+            <input type="hidden" name="query" th:value="${param.query}">
+        </th:block>
+        <th:block th:each="fg : ${param.fachgebiet}">
+            <input type="hidden" name="fachgebiet" th:value="${fg}">
+        </th:block>
+        <th:block th:each="v : ${param.voraussetzung}">
+            <input type="hidden" name="voraussetzung" th:value="${v}">
+        </th:block>
+        <th:block th:each="b : ${param.betreuer}">
+            <input type="hidden" name="betreuer" th:value="${b}">
+        </th:block>
+        <fieldset role="group">
+            <input name="betreuer" placeholder="z.B. Prof. Müller" type="search">
+            <input type="submit" value="Hinzufügen">
+        </fieldset>
+    </form>
+
+    <p th:if="${themen != null}">
+        <span th:if="${found}">Folgende Themen gefunden:</span>
+        <span th:unless="${found}">Keine Ergebnisse.</span>
     </p>
-    <ul>
+
+    <ul th:if="${themen != null}">
         <li th:each="thema : ${themen}">
             <a th:href="@{/view/thema/{id}(id=${thema.fachId})}" th:text="${thema.titel}">Titel</a>
         </li>
