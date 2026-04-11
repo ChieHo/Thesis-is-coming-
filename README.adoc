@@ -28,7 +28,7 @@ Fullstack web application for matching students with thesis supervisors
 * Authentication via GitHub OAuth2
 * Markdown files rendered as HTML directly in the browser
 
-Tech Stack
+== Tech Stack
 
 Backend: Spring Boot, Spring Web, Spring Data JDBC, Spring Security (OAuth2 via GitHub) +
 Frontend: Thymeleaf, Pico CSS +
@@ -39,7 +39,7 @@ Architecture +
 Onion Architecture with Gradle submodules enforced via ArchUnit. Modules: Profil (domain + persistence + web), Utility (shared utilities). +
 
 
-Setup +
+== Setup +
 Prerequisites – make sure the following are installed: +
 
 Java 21 +
