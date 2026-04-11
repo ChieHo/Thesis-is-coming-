@@ -30,32 +30,32 @@ Fullstack web application for matching students with thesis supervisors
 
 Tech Stack
 
-Backend: Spring Boot, Spring Web, Spring Data JDBC, Spring Security (OAuth2 via GitHub)
-Frontend: Thymeleaf, Pico CSS
-Database: PostgreSQL
-Build: Gradle (multi-module)
+Backend: Spring Boot, Spring Web, Spring Data JDBC, Spring Security (OAuth2 via GitHub) +
+Frontend: Thymeleaf, Pico CSS +
+Database: PostgreSQL +
+Build: Gradle (multi-module) +
 
-Architecture
-Onion Architecture with Gradle submodules enforced via ArchUnit. Modules: Profil (domain + persistence + web), Utility (shared utilities).
-Setup
-
-Prerequisites – make sure the following are installed:
-
-Java 21
-Docker & Docker Compose
-Git
+Architecture +
+Onion Architecture with Gradle submodules enforced via ArchUnit. Modules: Profil (domain + persistence + web), Utility (shared utilities). +
 
 
-Clone repository:
-git clone
-Start database:
-docker compose up -d
+Setup +
+Prerequisites – make sure the following are installed: +
+
+Java 21 +
+Docker & Docker Compose & Git +
+
+
+Clone repository: +
+git clone +
+Start database: +
+docker compose up -d +
 Configure GitHub OAuth2 – add your GitHub OAuth App credentials to application.properties or as environment variables:
 
    spring.security.oauth2.client.registration.github.client-id=...
    spring.security.oauth2.client.registration.github.client-secret=...
 
-Start application:
-./gradlew bootRun
-Open in browser:
+Start application: +
+./gradlew bootRun +
+Open in browser: +
 http://localhost:8080
