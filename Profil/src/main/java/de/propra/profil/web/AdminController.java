@@ -29,7 +29,11 @@ public class AdminController {
         model.addAttribute("nav", "admin");
     }
 
-
+    @GetMapping("/admin")
+    public String adminDashboard(Model model) {
+        model.addAttribute("profiles", profilService.alleProfil());
+        return "homepage/admin_dashboard";
+    }
 
     @GetMapping("/admin/roles")
     public String roles() {

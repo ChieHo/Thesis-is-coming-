@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Dashboard</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Willkommen, <span th:text="${profil.name}">Name</span></h1>
+
+    <section>
+        <h2>Mein Profil</h2>
+        <p>
+            <a th:href="@{/teacher/edit}" role="button">Profil bearbeiten</a>
+            <a th:href="@{/teacher/edit/files}" role="button">Profil-Dateien verwalten</a>
+            <a th:href="@{/view/profile/{id}(id=${profil.id})}">Mein Profil ansehen</a>
+        </p>
+    </section>
+
+    <section>
+        <h2>Meine Themen</h2>
+        <p><a th:href="@{/teacher/thema/neu}" role="button">Neues Thema erstellen</a></p>
+        <p th:if="${themen == null || themen.isEmpty()}">Noch keine Themen vorhanden.</p>
+        <ul th:unless="${themen == null || themen.isEmpty()}">
+            <li th:each="thema : ${themen}">
+                <a th:href="@{/view/thema/{id}(id=${thema.fachId})}" th:text="${thema.titel}">Titel</a>
+                –
+                <a th:href="@{/teacher/thema/{id}/edit(id=${thema.fachId})}">Bearbeiten</a>
+                –
+                <a th:href="@{/teacher/thema/{id}/edit/files(id=${thema.fachId})}">Dateien</a>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

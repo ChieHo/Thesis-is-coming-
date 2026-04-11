@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de" th:replace="~{frag-layout :: layout(~{::main})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link th:href="@{/css/pico.min.css}" th:rel="stylesheet">
+</head>
+<body class="container">
+<main>
+    <h1>Admin Dashboard</h1>
+
+    <section>
+        <h2>Rollenverwaltung</h2>
+        <p>
+            <a th:href="@{/admin/roles/assign}" role="button">Betreuer anlegen</a>
+            <a th:href="@{/admin/roles/revoke}" role="button">Betreuer entfernen</a>
+        </p>
+        <h3>Aktuelle Betreuer (<span th:text="${profiles.size()}">0</span>)</h3>
+        <ul th:if="${!profiles.isEmpty()}">
+            <li th:each="profile : ${profiles}">
+                <a th:href="@{/view/profile/{id}(id=${profile.id})}" th:text="${profile.name}">Name</a>
+                –
+                <a th:href="@{/admin/roles/revoke/{id}(id=${profile.id})}">Rolle entfernen</a>
+            </li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

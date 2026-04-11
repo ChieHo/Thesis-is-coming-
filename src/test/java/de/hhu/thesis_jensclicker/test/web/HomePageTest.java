@@ -1,23 +1,15 @@
 package de.hhu.thesis_jensclicker.test.web;
 
-import de.hhu.thesis_jensclicker.CSModules.CSModuleRepository;
-import de.hhu.thesis_jensclicker.CSModules.CSModuleService;
-import de.hhu.thesis_jensclicker.DAO.ThesisCSModule.ThesisCSModuleRepository;
-import de.hhu.thesis_jensclicker.DAO.ThesisCSModule.ThesisCSModuleService;
-import de.hhu.thesis_jensclicker.DAO.ThesisFachgebiet.ThesisFachgebietRepository;
-import de.hhu.thesis_jensclicker.DAO.ThesisFachgebiet.ThesisFachgebietService;
-import de.hhu.thesis_jensclicker.Fachgebiete.FachgebietService;
-import de.hhu.thesis_jensclicker.File.FileRepository;
-import de.hhu.thesis_jensclicker.Link.LinkRepository;
-import de.hhu.thesis_jensclicker.Thesis.ThesisRepository;
-import de.hhu.thesis_jensclicker.configuration.AppUserService;
+
+
 import de.hhu.thesis_jensclicker.helper.user.ProfilBuilder;
 import de.hhu.thesis_jensclicker.helper.user.WithMockOAuth2User;
 import de.hhu.thesis_jensclicker.security.SecurityConfig;
-import de.propra.homepage.HomeController;
+
 import de.propra.profil.application.repository.ProfilRepository;
 import de.propra.profil.application.service.ProfilService;
 import de.propra.profil.domain.model.profil.Profil;
+import de.propra.profil.web.HomeController;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,29 +32,6 @@ public class HomePageTest {
     ProfilService profilService;
     @MockitoBean
     ProfilRepository profilRepository;
-    @MockitoBean
-    AppUserService appUserService;
-
-    @MockitoBean
-    CSModuleRepository csModuleRepository;
-    @MockitoBean
-    CSModuleService csModuleService;
-    @MockitoBean
-    ThesisCSModuleRepository thesisCSModuleRepository;
-    @MockitoBean
-    ThesisCSModuleService s;
-    @MockitoBean
-    ThesisFachgebietService thesisFachgebietService;
-    @MockitoBean
-    ThesisFachgebietRepository thesisFachgebietRepository;
-    @MockitoBean
-    FachgebietService fachgebietService;
-    @MockitoBean
-    FileRepository fileRepository;
-    @MockitoBean
-    LinkRepository linkRepository;
-    @MockitoBean
-    ThesisRepository thesisRepository;
 
 
     @Test
