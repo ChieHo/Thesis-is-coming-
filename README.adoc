@@ -1,16 +1,49 @@
 = Thesis is coming!
 
-Anforderungen finden Sie in der https://propra.d.stups.hhu.de/ws25/627b529bc074bf7/index.html[Projektbeschreibung] 
-Lesen Sie auf jeden Fall die Hinweise im https://propra.d.stups.hhu.de/ws25/81409548708bb5d/index.html[Organisationsdokument]. 
+Fullstack web application for matching students with thesis supervisors
+(HHU Programmierpraktikum 2 project)
 
-Fristen für die Selbstbewertung in Ilias:
+Features
 
-* erste Klausur: 16.02.2026
-* zweite Klausur: 17.03.2026
+Browse and search supervisor profiles with tags and specializations
+Browse and search thesis topics with filtering by field, prerequisites and supervisor
+Matching system: students enter their completed courses and interests to find compatible supervisors and topics
+Supervisor profiles with files (PDF, ZIP, Markdown), links and field tags
+Thesis topics with descriptions (rendered Markdown), prerequisites, files and links
+Role-based access: Students, Supervisors (Teachers) and Admins
+Admin dashboard for managing supervisor roles
+Teacher dashboard for managing own profile and topics
+Authentication via GitHub OAuth2
+Markdown files rendered as HTML directly in the browser
 
-Jedes Teammitglied muss die Selbstbewertung einzeln ausfüllen. 
-Wenn Sie den Fragebogen zum ersten Termin ausgefüllt haben, die erste Klausur aber nicht mitgeschrieben haben, müssen Sie den Fragebogen für den zweiten Versuch neu ausfüllen. 
+Tech Stack
 
-Dokumentieren Sie die Verwendung von KI-Werkzeugen in der Datei ki.txt
+Backend: Spring Boot, Spring Web, Spring Data JDBC, Spring Security (OAuth2 via GitHub)
+Frontend: Thymeleaf, Pico CSS
+Database: PostgreSQL
+Build: Gradle (multi-module)
 
-Wir behalten uns vor, die Implementierung und Ihre Beantwortung des Fragebogens stichpunktartig zu prüfen.
+Architecture
+Onion Architecture with Gradle submodules enforced via ArchUnit. Modules: Profil (domain + persistence + web), Utility (shared utilities).
+Setup
+
+Prerequisites – make sure the following are installed:
+
+Java 21
+Docker & Docker Compose
+Git
+
+
+Clone repository:
+git clone
+Start database:
+docker compose up -d
+Configure GitHub OAuth2 – add your GitHub OAuth App credentials to application.properties or as environment variables:
+
+   spring.security.oauth2.client.registration.github.client-id=...
+   spring.security.oauth2.client.registration.github.client-secret=...
+
+Start application:
+./gradlew bootRun
+Open in browser:
+http://localhost:8080
