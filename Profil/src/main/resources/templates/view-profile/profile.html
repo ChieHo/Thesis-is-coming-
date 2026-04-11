@@ -28,6 +28,14 @@
             <small>(<span th:text="${file.displaySize()}">50 kB</span>)</small>
         </a></li>
     </ul>
+
+    <h3>Themen</h3>
+    <p th:if="${themen == null || themen.isEmpty()}">Keine Themen vorhanden.</p>
+    <ul th:if="${themen != null and !themen.isEmpty()}">
+        <li th:each="thema : ${themen}">
+            <a th:href="@{/view/thema/{id}(id=${thema.fachId})}" th:text="${thema.titel}">Thema</a>
+        </li>
+    </ul>
 </main>
 </body>
 </html>

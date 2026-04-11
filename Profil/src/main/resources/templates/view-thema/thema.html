@@ -18,7 +18,7 @@
 
     <p>Voraussetzungen: <span th:if="${thema.voraussetzungen == null || thema.voraussetzungen.isEmpty()}">Keine angegeben.</span></p>
     <ul th:if="${thema.voraussetzungen != null and !thema.voraussetzungen.isEmpty()}">
-        <li th:each="v : ${thema.voraussetzungen}" >Voraussetzung</li>
+        <li th:each="v : ${thema.voraussetzungen}" th:text="${v.voraussetzung}" >Voraussetzung</li>
     </ul>
 
     <p>Links: <span th:if="${thema.links == null || thema.links.isEmpty()}">Keine angegeben.</span></p>

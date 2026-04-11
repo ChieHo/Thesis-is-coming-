@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ThemaService {
@@ -80,4 +81,44 @@ public class ThemaService {
         return profilRepository.findById(profilFachId)
                 .orElseThrow(NichtVorhandenException::new);
     }
+
+    public List<Thema> sucheWithBetreuer(String query, List<String> fachgebiete,
+                                         List<String> voraussetzungen, List<String> betreuer) {
+        return themaRepository.findAll().stream()
+                .filter(thema -> matchesTitel(thema, query))
+                .filter(thema -> matchesFachgebiete(thema, fachgebiete))
+                .filter(thema -> matchesVoraussetzungen(thema, voraussetzungen))
+                .filter(thema -> matchesBetreuer(thema, betreuer))
+                .collect(Collectors.toList());
+    }
+
+    private boolean matchesTitel(Thema thema, String query) {
+        if (query == null || query.isBlank()) return true;
+        return thema.getTitel().toLowerCase().contains(query.toLowerCase());
+    }
+
+    private boolean matchesFachgebiete(Thema thema, List<String> fachgebiete) {
+        if (fachgebiete == null || fachgebiete.isEmpty()) return true;
+        return fachgebiete.stream().allMatch(fg ->
+                thema.getFachgebiete().stream()
+                        .anyMatch(f -> f.getName().toLowerCase().contains(fg.toLowerCase())));
+    }
+
+    private boolean matchesVoraussetzungen(Thema thema, List<String> voraussetzungen) {
+        if (voraussetzungen == null || voraussetzungen.isEmpty()) return true;
+        return voraussetzungen.stream().allMatch(v ->
+                thema.getVoraussetzungen().stream()
+                        .anyMatch(vv -> vv.getVoraussetzung().toLowerCase().contains(v.toLowerCase())));
+    }
+
+    private boolean matchesBetreuer(Thema thema, List<String> betreuer) {
+        if (betreuer == null || betreuer.isEmpty()) return true;
+        Profil profil = profilRepository.findById(
+                themaRepository.getProfilFachId(thema.getFachId())).orElse(null);
+        if (profil == null) return false;
+        return betreuer.stream().allMatch(b ->
+                profil.getName().toLowerCase().contains(b.toLowerCase()));
+    }
+
+
 }

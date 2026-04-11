@@ -4,6 +4,7 @@ import de.hhu.thesis_jensclicker.utility.MarkdownRenderer;
 import de.hhu.thesis_jensclicker.utility.NavMapper;
 import de.hhu.thesis_jensclicker.utility.Roles.StudiAccess;
 import de.propra.profil.application.service.ProfilService;
+import de.propra.profil.application.service.ThemaService;
 import de.propra.profil.domain.model.profil.File;
 import de.propra.profil.domain.model.profil.Profil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -29,12 +30,13 @@ import java.util.stream.Collectors;
 @StudiAccess
 public class ProfileViewController {
     private final ProfilService profilService;
+    private final ThemaService themaService;
 
 
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "ArchUnit tests fail when autowired")
-    public ProfileViewController(ProfilService profilService) {
+    public ProfileViewController(ProfilService profilService, ThemaService themaService) {
         this.profilService = profilService;
-
+        this.themaService = themaService;
     }
 
     @ModelAttribute
@@ -73,6 +75,7 @@ public class ProfileViewController {
         model.addAttribute("noEmail", profile.getEmail().isEmpty());
         model.addAttribute("noFachgebiete", profile.getFachgebiete().isEmpty());
         model.addAttribute("noLinks", profile.getLinks().isEmpty());
+        model.addAttribute("themen", themaService.themenVonProfil(id));
         model.addAttribute("nav", NavMapper.mapRole(principal));
         return "view-profile/profile";
     }
